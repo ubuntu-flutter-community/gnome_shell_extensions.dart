@@ -221,8 +221,11 @@ class GnomeShellExtensionService {
           allowInteractiveAuthorization: allowInteractiveAuthorization);
 
   Future<List<GnomeShellExtension>> getRemoteExtensions(
-      String gnomeShellVersion, String query) async {
-    final url = '$_kApiUrl?search=$query&shell_version=$gnomeShellVersion';
+      {required String gnomeShellVersion,
+      required String query,
+      required int page}) async {
+    final url =
+        '$_kApiUrl?search=$query&shell_version=$gnomeShellVersion&page=$page';
 
     final response = await http.get(Uri.parse(url));
 

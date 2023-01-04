@@ -4,14 +4,24 @@ Future<void> main() async {
   final service = GnomeShellExtensionService();
   await service.init();
 
-  final ext = await service.getRemoteExtensions('42.5', 'dock');
-
-  for (var e in ext) {
-    print(e.name);
-    for (var v in e.shellVersionMap.entries) {
-      print('${v.key}: ${v.value}');
-    }
+  for (var i = 0; i < 10; i++) {
+    await getPage(service, i);
   }
 
   service.dispose();
+}
+
+Future<void> getPage(GnomeShellExtensionService service, int page) async {
+  final extensionsPage = await service.getRemoteExtensions(
+      gnomeShellVersion: '42.5', query: 'dock', page: page);
+
+  if (extensionsPage.isNotEmpty) {
+    print('~~~~~~~~ PAGE: $page ~~~~~~~~\n');
+
+    for (var e in extensionsPage) {
+      print('Name: ${e.name} | uuid: ${e.uuid}');
+    }
+
+    print('\n');
+  }
 }
