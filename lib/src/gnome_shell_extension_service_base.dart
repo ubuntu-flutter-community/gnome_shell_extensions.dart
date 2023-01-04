@@ -1,8 +1,11 @@
 library gnome_shell_extensions;
 
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:dbus/dbus.dart';
+import 'package:gnome_shell_extension_service/src/gnome_shell_extension.dart';
+import 'package:http/http.dart' as http;
 
 const _kGnomeShellExtensionsInterface = 'org.gnome.Shell.Extensions';
 const _kGnomeShellExtensionsPath = '/org/gnome/Shell/Extensions';
@@ -54,6 +57,8 @@ const _kShellVersionProperty = 'ShellVersion';
 // ExtensionStatusChanged (String, Int32, String)
 // const _kExtensionStatusChangedSignal = 'ExtensionStatusChanged';
 
+const _kApiUrl = 'https://extensions.gnome.org/extension-query/';
+
 class GnomeShellExtensionService {
   GnomeShellExtensionService() : _object = _createObject();
 
@@ -61,7 +66,7 @@ class GnomeShellExtensionService {
   StreamSubscription<DBusPropertiesChangedSignal>? _propertyListener;
 
   static DBusRemoteObject _createObject() => DBusRemoteObject(
-        DBusClient.system(),
+        DBusClient.session(),
         name: _kGnomeShellExtensionsInterface,
         path: DBusObjectPath(_kGnomeShellExtensionsPath),
       );
@@ -214,6 +219,22 @@ class GnomeShellExtensionService {
       _object.callCheckForUpdates(
           noAutoStart: noAutoStart,
           allowInteractiveAuthorization: allowInteractiveAuthorization);
+
+  Future<List<GnomeShellExtension>> getRemoteExtensions(
+      String gnomeShellVersion, String query) async {
+    final url = '$_kApiUrl?search=$query&shell_version=$gnomeShellVersion';
+
+    final response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      final jsonResponse = json.decode(response.body);
+      final exts = jsonResponse['extensions'] as List;
+
+      return exts.map((e) => GnomeShellExtension.fromMap(e)).toList();
+    } else {
+      return <GnomeShellExtension>[];
+    }
+  }
 }
 
 extension _GnomeShellExtensionsRemoteObject on DBusRemoteObject {
