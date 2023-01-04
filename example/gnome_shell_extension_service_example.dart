@@ -1,22 +1,35 @@
 // ignore_for_file: avoid_print
 
+import 'package:dbus/dbus.dart';
 import 'package:gnome_shell_extension_service/gnome_shell_extension_service.dart';
 
 Future<void> main() async {
   final service = GnomeShellExtensionService();
   await service.init();
 
+  final installedExtensions = await service.listExtensions();
+
+  print('~~~~~~~~ Installed extensions ~~~~~~~~\n');
+  for (var e in installedExtensions.entries) {
+    print(e.key);
+  }
+  print('\n');
+
   for (var i = 0; i < 10; i++) {
-    await getPage(service, i);
+    await _getPage(service, i, installedExtensions);
   }
 
   await service.dispose();
 }
 
-Future<void> getPage(GnomeShellExtensionService service, int page) async {
+Future<void> _getPage(
+  GnomeShellExtensionService service,
+  int page,
+  Map<String, Map<String, DBusValue>> installedExtensions,
+) async {
   final extensionsPage = await service.getRemoteExtensions(
     gnomeShellVersion: '42.5',
-    query: 'dock',
+    query: 'theme',
     page: page,
   );
 
@@ -24,7 +37,10 @@ Future<void> getPage(GnomeShellExtensionService service, int page) async {
     print('~~~~~~~~ PAGE: $page ~~~~~~~~\n');
 
     for (var e in extensionsPage) {
-      print('Name: ${e.name} | uuid: ${e.uuid}');
+      bool installed = installedExtensions.containsKey(e.uuid);
+      print(
+        'Name: ${e.name} | uuid: ${e.uuid} ${installed ? '(INSTALLED ✅)' : ''} ',
+      );
       print(e.screenShotUrl);
       print(e.iconUrl);
     }
