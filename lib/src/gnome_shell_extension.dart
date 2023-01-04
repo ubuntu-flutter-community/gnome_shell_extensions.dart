@@ -29,6 +29,8 @@ class GnomeShellExtension {
   final String screenshot;
   final Map<String, dynamic> shellVersionMap;
 
+  String get screenShotUrl => 'https://extensions.gnome.org$screenshot';
+
   GnomeShellExtension copyWith({
     String? uuid,
     String? name,
