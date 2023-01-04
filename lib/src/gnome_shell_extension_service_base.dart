@@ -405,8 +405,3 @@ extension _ChangedGnomeShellExtensions on DBusPropertiesChangedSignal {
     return changedProperties.containsKey(_kUserExtensionsEnabledProperty);
   }
 }
-
-extension _GnomeShellExtensionsSignal on DBusSignal {
-  String get uuid => values[0].asString();
-  Map<String, DBusValue> get state => values[1].asStringVariantDict();
-}
