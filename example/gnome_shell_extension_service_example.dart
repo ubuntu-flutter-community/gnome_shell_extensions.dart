@@ -28,7 +28,6 @@ Future<void> _getPage(
   Map<String, Map<String, DBusValue>> installedExtensions,
 ) async {
   final extensionsPage = await service.getRemoteExtensions(
-    gnomeShellVersion: '42.5',
     query: 'theme',
     page: page,
   );

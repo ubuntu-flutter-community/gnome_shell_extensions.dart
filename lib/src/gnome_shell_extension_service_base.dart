@@ -214,12 +214,15 @@ class GnomeShellExtensionService {
       );
 
   Future<List<GnomeShellExtension>> getRemoteExtensions({
-    required String gnomeShellVersion,
+    String? gnomeShellVersion,
     required String query,
     required int page,
   }) async {
-    final url =
-        '$kApiUrl?search=$query&shell_version=$gnomeShellVersion&page=$page';
+    final version = _gnomeShellVersion ?? gnomeShellVersion;
+    if (version == null) {
+      return <GnomeShellExtension>[];
+    }
+    final url = '$kApiUrl?search=$query&shell_version=$version&page=$page';
 
     final response = await http.get(Uri.parse(url));
 
