@@ -134,96 +134,96 @@ class GnomeShellExtensionService {
   /// Invokes org.gnome.Shell.Extensions.ListExtensions()
   Future<Map<String, Map<String, DBusValue>>> listExtensions(
           {bool noAutoStart = false,
-          bool allowInteractiveAuthorization = false}) async =>
+          bool allowInteractiveAuthorization = false,}) async =>
       await _object.callListExtensions(
           noAutoStart: noAutoStart,
-          allowInteractiveAuthorization: allowInteractiveAuthorization);
+          allowInteractiveAuthorization: allowInteractiveAuthorization,);
 
   /// Invokes org.gnome.Shell.Extensions.GetExtensionInfo()
   Future<Map<String, DBusValue>> getExtensionInfo(String uuid,
           {bool noAutoStart = false,
-          bool allowInteractiveAuthorization = false}) =>
+          bool allowInteractiveAuthorization = false,}) =>
       _object.callGetExtensionInfo(uuid,
           noAutoStart: noAutoStart,
-          allowInteractiveAuthorization: allowInteractiveAuthorization);
+          allowInteractiveAuthorization: allowInteractiveAuthorization,);
 
   /// Invokes org.gnome.Shell.Extensions.GetExtensionErrors()
   Future<List<String>> getExtensionErrors(String uuid,
           {bool noAutoStart = false,
-          bool allowInteractiveAuthorization = false}) async =>
+          bool allowInteractiveAuthorization = false,}) async =>
       _object.callGetExtensionErrors(uuid,
           noAutoStart: noAutoStart,
-          allowInteractiveAuthorization: allowInteractiveAuthorization);
+          allowInteractiveAuthorization: allowInteractiveAuthorization,);
 
   /// Invokes org.gnome.Shell.Extensions.InstallRemoteExtension()
   Future<String> installRemoteExtension(String uuid,
           {bool noAutoStart = false,
-          bool allowInteractiveAuthorization = false}) async =>
+          bool allowInteractiveAuthorization = false,}) async =>
       _object.callInstallRemoteExtension(uuid,
           noAutoStart: noAutoStart,
-          allowInteractiveAuthorization: allowInteractiveAuthorization);
+          allowInteractiveAuthorization: allowInteractiveAuthorization,);
 
   /// Invokes org.gnome.Shell.Extensions.UninstallExtension()
   Future<bool> uninstallExtension(String uuid,
           {bool noAutoStart = false,
-          bool allowInteractiveAuthorization = false}) async =>
+          bool allowInteractiveAuthorization = false,}) async =>
       _object.callUninstallExtension(uuid,
           noAutoStart: noAutoStart,
-          allowInteractiveAuthorization: allowInteractiveAuthorization);
+          allowInteractiveAuthorization: allowInteractiveAuthorization,);
 
   /// Invokes org.gnome.Shell.Extensions.ReloadExtension()
   Future<void> reloadExtension(String uuid,
           {bool noAutoStart = false,
-          bool allowInteractiveAuthorization = false}) async =>
+          bool allowInteractiveAuthorization = false,}) async =>
       _object.callReloadExtension(uuid,
           noAutoStart: noAutoStart,
-          allowInteractiveAuthorization: allowInteractiveAuthorization);
+          allowInteractiveAuthorization: allowInteractiveAuthorization,);
 
   /// Invokes org.gnome.Shell.Extensions.EnableExtension()
   Future<bool> enableExtension(String uuid,
           {bool noAutoStart = false,
-          bool allowInteractiveAuthorization = false}) async =>
+          bool allowInteractiveAuthorization = false,}) async =>
       _object.callEnableExtension(uuid,
           noAutoStart: noAutoStart,
-          allowInteractiveAuthorization: allowInteractiveAuthorization);
+          allowInteractiveAuthorization: allowInteractiveAuthorization,);
 
   /// Invokes org.gnome.Shell.Extensions.DisableExtension()
   Future<bool> disableExtension(String uuid,
           {bool noAutoStart = false,
-          bool allowInteractiveAuthorization = false}) async =>
+          bool allowInteractiveAuthorization = false,}) async =>
       _object.callDisableExtension(uuid,
           noAutoStart: noAutoStart,
-          allowInteractiveAuthorization: allowInteractiveAuthorization);
+          allowInteractiveAuthorization: allowInteractiveAuthorization,);
 
   /// Invokes org.gnome.Shell.Extensions.LaunchExtensionPrefs()
   Future<void> launchExtensionPrefs(String uuid,
           {bool noAutoStart = false,
-          bool allowInteractiveAuthorization = false}) async =>
+          bool allowInteractiveAuthorization = false,}) async =>
       _object.callLaunchExtensionPrefs(uuid,
           noAutoStart: noAutoStart,
-          allowInteractiveAuthorization: allowInteractiveAuthorization);
+          allowInteractiveAuthorization: allowInteractiveAuthorization,);
 
   /// Invokes org.gnome.Shell.Extensions.OpenExtensionPrefs()
   Future<void> openExtensionPrefs(
           String uuid, String parentWindow, Map<String, DBusValue> options,
           {bool noAutoStart = false,
-          bool allowInteractiveAuthorization = false}) async =>
+          bool allowInteractiveAuthorization = false,}) async =>
       _object.callOpenExtensionPrefs(uuid, parentWindow, options,
           noAutoStart: noAutoStart,
-          allowInteractiveAuthorization: allowInteractiveAuthorization);
+          allowInteractiveAuthorization: allowInteractiveAuthorization,);
 
   /// Invokes org.gnome.Shell.Extensions.CheckForUpdates()
   Future<void> checkForUpdates(
           {bool noAutoStart = false,
-          bool allowInteractiveAuthorization = false}) async =>
+          bool allowInteractiveAuthorization = false,}) async =>
       _object.callCheckForUpdates(
           noAutoStart: noAutoStart,
-          allowInteractiveAuthorization: allowInteractiveAuthorization);
+          allowInteractiveAuthorization: allowInteractiveAuthorization,);
 
   Future<List<GnomeShellExtension>> getRemoteExtensions(
       {required String gnomeShellVersion,
       required String query,
-      required int page}) async {
+      required int page,}) async {
     final url =
         '$_kApiUrl?search=$query&shell_version=$gnomeShellVersion&page=$page';
 
@@ -245,7 +245,7 @@ extension _GnomeShellExtensionsRemoteObject on DBusRemoteObject {
   Future<String> getShellVersion() async {
     var value = await getProperty(
         _kGnomeShellExtensionsInterface, _kShellVersionProperty,
-        signature: DBusSignature('s'));
+        signature: DBusSignature('s'),);
     return value.asString();
   }
 
@@ -253,128 +253,128 @@ extension _GnomeShellExtensionsRemoteObject on DBusRemoteObject {
   Future<bool> getUserExtensionsEnabled() async {
     var value = await getProperty(
         _kGnomeShellExtensionsInterface, _kUserExtensionsEnabledProperty,
-        signature: DBusSignature('b'));
+        signature: DBusSignature('b'),);
     return value.asBoolean();
   }
 
   /// Sets org.gnome.Shell.Extensions.UserExtensionsEnabled
   Future<void> setUserExtensionsEnabled(bool value) async {
     await setProperty(_kGnomeShellExtensionsInterface,
-        _kUserExtensionsEnabledProperty, DBusBoolean(value));
+        _kUserExtensionsEnabledProperty, DBusBoolean(value),);
   }
 
   /// Invokes org.gnome.Shell.Extensions.ListExtensions()
   Future<Map<String, Map<String, DBusValue>>> callListExtensions(
       {bool noAutoStart = false,
-      bool allowInteractiveAuthorization = false}) async {
+      bool allowInteractiveAuthorization = false,}) async {
     var result = await callMethod(
         _kGnomeShellExtensionsInterface, _kListExtensionsMethod, [],
         replySignature: DBusSignature('a{sa{sv}}'),
         noAutoStart: noAutoStart,
-        allowInteractiveAuthorization: allowInteractiveAuthorization);
+        allowInteractiveAuthorization: allowInteractiveAuthorization,);
     return result.returnValues[0].asDict().map(
-        (key, value) => MapEntry(key.asString(), value.asStringVariantDict()));
+        (key, value) => MapEntry(key.asString(), value.asStringVariantDict()),);
   }
 
   /// Invokes org.gnome.Shell.Extensions.GetExtensionInfo()
   Future<Map<String, DBusValue>> callGetExtensionInfo(String uuid,
       {bool noAutoStart = false,
-      bool allowInteractiveAuthorization = false}) async {
+      bool allowInteractiveAuthorization = false,}) async {
     var result = await callMethod(_kGnomeShellExtensionsInterface,
         _kGetExtensionInfoMethod, [DBusString(uuid)],
         replySignature: DBusSignature('a{sv}'),
         noAutoStart: noAutoStart,
-        allowInteractiveAuthorization: allowInteractiveAuthorization);
+        allowInteractiveAuthorization: allowInteractiveAuthorization,);
     return result.returnValues[0].asStringVariantDict();
   }
 
   /// Invokes org.gnome.Shell.Extensions.GetExtensionErrors()
   Future<List<String>> callGetExtensionErrors(String uuid,
       {bool noAutoStart = false,
-      bool allowInteractiveAuthorization = false}) async {
+      bool allowInteractiveAuthorization = false,}) async {
     var result = await callMethod(_kGnomeShellExtensionsInterface,
         _kGetExtensionErrorsMethod, [DBusString(uuid)],
         replySignature: DBusSignature('as'),
         noAutoStart: noAutoStart,
-        allowInteractiveAuthorization: allowInteractiveAuthorization);
+        allowInteractiveAuthorization: allowInteractiveAuthorization,);
     return result.returnValues[0].asStringArray().toList();
   }
 
   /// Invokes org.gnome.Shell.Extensions.InstallRemoteExtension()
   Future<String> callInstallRemoteExtension(String uuid,
       {bool noAutoStart = false,
-      bool allowInteractiveAuthorization = false}) async {
+      bool allowInteractiveAuthorization = false,}) async {
     var result = await callMethod(_kGnomeShellExtensionsInterface,
         _kInstallRemoteExtensionMethod, [DBusString(uuid)],
         replySignature: DBusSignature('s'),
         noAutoStart: noAutoStart,
-        allowInteractiveAuthorization: allowInteractiveAuthorization);
+        allowInteractiveAuthorization: allowInteractiveAuthorization,);
     return result.returnValues[0].asString();
   }
 
   /// Invokes org.gnome.Shell.Extensions.UninstallExtension()
   Future<bool> callUninstallExtension(String uuid,
       {bool noAutoStart = false,
-      bool allowInteractiveAuthorization = false}) async {
+      bool allowInteractiveAuthorization = false,}) async {
     var result = await callMethod(_kGnomeShellExtensionsInterface,
         _kUninstallExtensionMethod, [DBusString(uuid)],
         replySignature: DBusSignature('b'),
         noAutoStart: noAutoStart,
-        allowInteractiveAuthorization: allowInteractiveAuthorization);
+        allowInteractiveAuthorization: allowInteractiveAuthorization,);
     return result.returnValues[0].asBoolean();
   }
 
   /// Invokes org.gnome.Shell.Extensions.ReloadExtension()
   Future<void> callReloadExtension(String uuid,
       {bool noAutoStart = false,
-      bool allowInteractiveAuthorization = false}) async {
+      bool allowInteractiveAuthorization = false,}) async {
     await callMethod(_kGnomeShellExtensionsInterface, _kReloadExtensionMethod,
         [DBusString(uuid)],
         replySignature: DBusSignature(''),
         noAutoStart: noAutoStart,
-        allowInteractiveAuthorization: allowInteractiveAuthorization);
+        allowInteractiveAuthorization: allowInteractiveAuthorization,);
   }
 
   /// Invokes org.gnome.Shell.Extensions.EnableExtension()
   Future<bool> callEnableExtension(String uuid,
       {bool noAutoStart = false,
-      bool allowInteractiveAuthorization = false}) async {
+      bool allowInteractiveAuthorization = false,}) async {
     var result = await callMethod(_kGnomeShellExtensionsInterface,
         _kEnableExtensionMethod, [DBusString(uuid)],
         replySignature: DBusSignature('b'),
         noAutoStart: noAutoStart,
-        allowInteractiveAuthorization: allowInteractiveAuthorization);
+        allowInteractiveAuthorization: allowInteractiveAuthorization,);
     return result.returnValues[0].asBoolean();
   }
 
   /// Invokes org.gnome.Shell.Extensions.DisableExtension()
   Future<bool> callDisableExtension(String uuid,
       {bool noAutoStart = false,
-      bool allowInteractiveAuthorization = false}) async {
+      bool allowInteractiveAuthorization = false,}) async {
     var result = await callMethod(_kGnomeShellExtensionsInterface,
         _kDisableExtensionMethod, [DBusString(uuid)],
         replySignature: DBusSignature('b'),
         noAutoStart: noAutoStart,
-        allowInteractiveAuthorization: allowInteractiveAuthorization);
+        allowInteractiveAuthorization: allowInteractiveAuthorization,);
     return result.returnValues[0].asBoolean();
   }
 
   /// Invokes org.gnome.Shell.Extensions.LaunchExtensionPrefs()
   Future<void> callLaunchExtensionPrefs(String uuid,
       {bool noAutoStart = false,
-      bool allowInteractiveAuthorization = false}) async {
+      bool allowInteractiveAuthorization = false,}) async {
     await callMethod(_kGnomeShellExtensionsInterface,
         _kLaunchExtensionPrefsMethod, [DBusString(uuid)],
         replySignature: DBusSignature(''),
         noAutoStart: noAutoStart,
-        allowInteractiveAuthorization: allowInteractiveAuthorization);
+        allowInteractiveAuthorization: allowInteractiveAuthorization,);
   }
 
   /// Invokes org.gnome.Shell.Extensions.OpenExtensionPrefs()
   Future<void> callOpenExtensionPrefs(
       String uuid, String parentWindow, Map<String, DBusValue> options,
       {bool noAutoStart = false,
-      bool allowInteractiveAuthorization = false}) async {
+      bool allowInteractiveAuthorization = false,}) async {
     await callMethod(
         _kGnomeShellExtensionsInterface,
         _kOpenExtensionPrefsMethod,
@@ -385,18 +385,18 @@ extension _GnomeShellExtensionsRemoteObject on DBusRemoteObject {
         ],
         replySignature: DBusSignature(''),
         noAutoStart: noAutoStart,
-        allowInteractiveAuthorization: allowInteractiveAuthorization);
+        allowInteractiveAuthorization: allowInteractiveAuthorization,);
   }
 
   /// Invokes org.gnome.Shell.Extensions.CheckForUpdates()
   Future<void> callCheckForUpdates(
       {bool noAutoStart = false,
-      bool allowInteractiveAuthorization = false}) async {
+      bool allowInteractiveAuthorization = false,}) async {
     await callMethod(
         _kGnomeShellExtensionsInterface, _kCheckForUpdatesMethod, [],
         replySignature: DBusSignature(''),
         noAutoStart: noAutoStart,
-        allowInteractiveAuthorization: allowInteractiveAuthorization);
+        allowInteractiveAuthorization: allowInteractiveAuthorization,);
   }
 }
 
