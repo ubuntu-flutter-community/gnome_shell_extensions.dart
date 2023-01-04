@@ -48,4 +48,5 @@ const kShellVersionProperty = 'ShellVersion';
 // ExtensionStatusChanged (String, Int32, String)
 // const kExtensionStatusChangedSignal = 'ExtensionStatusChanged';
 
-const kApiUrl = 'https://extensions.gnome.org/extension-query/';
+const kBaseUrl = 'https://extensions.gnome.org';
+const kApiUrl = '$kBaseUrl/extension-query/';

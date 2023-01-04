@@ -26,6 +26,7 @@ Future<void> getPage(GnomeShellExtensionService service, int page) async {
     for (var e in extensionsPage) {
       print('Name: ${e.name} | uuid: ${e.uuid}');
       print(e.screenShotUrl);
+      print(e.iconUrl);
     }
 
     print('\n');

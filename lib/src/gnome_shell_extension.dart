@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
+import 'package:gnome_shell_extension_service/src/constants.dart';
 
 import 'package:gnome_shell_extension_service/src/gnome_shell_version_details.dart';
 
@@ -29,7 +30,8 @@ class GnomeShellExtension {
   final String screenshot;
   final Map<String, dynamic> shellVersionMap;
 
-  String get screenShotUrl => 'https://extensions.gnome.org$screenshot';
+  String get screenShotUrl => '$kBaseUrl$screenshot';
+  String get iconUrl => '$kBaseUrl$icon';
 
   GnomeShellExtension copyWith({
     String? uuid,
