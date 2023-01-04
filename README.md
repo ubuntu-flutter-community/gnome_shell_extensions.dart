@@ -1,6 +1,6 @@
 ## Features
 
-This a dart implementation of the dbus interface is org.gnome.Shell.Extensions.
+This a dart implementation of the dbus interface org.gnome.Shell.Extensions.
 It is also possible to get a list of remote extensions via HTTP.
 
 ## TODO
