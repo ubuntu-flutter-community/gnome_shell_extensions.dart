@@ -103,6 +103,14 @@ class GnomeShellExtensionService {
         allowInteractiveAuthorization: allowInteractiveAuthorization,
       );
 
+  Future<bool> isExtensionEnabled(String uuid) async {
+    final info = await getExtensionInfo(uuid);
+
+    final enabled = info['state']?.asDouble() == 1.0 ? true : false;
+
+    return enabled;
+  }
+
   /// Invokes org.gnome.Shell.Extensions.GetExtensionErrors()
   Future<List<String>> getExtensionErrors(
     String uuid, {

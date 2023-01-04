@@ -37,8 +37,15 @@ Future<void> _getPage(
 
     for (var e in extensionsPage) {
       bool installed = installedExtensions.containsKey(e.uuid);
+      String state = '';
+
+      if (installed) {
+        final enabled = await service.isExtensionEnabled(e.uuid);
+        state = enabled ? 'ENABLED' : 'DISABLED ⬛';
+      }
+
       print(
-        'Name: ${e.name} | uuid: ${e.uuid} ${installed ? '(INSTALLED ✅)' : ''} ',
+        'Name: ${e.name} | uuid: ${e.uuid} ${installed ? '(INSTALLED ✅ | $state)' : ''} ',
       );
       print(e.screenShotUrl);
       print(e.iconUrl);
