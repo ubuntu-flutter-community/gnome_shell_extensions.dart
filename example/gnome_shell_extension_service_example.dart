@@ -8,7 +8,7 @@ Future<void> main() async {
     await getPage(service, i);
   }
 
-  service.dispose();
+  await service.dispose();
 }
 
 Future<void> getPage(GnomeShellExtensionService service, int page) async {
